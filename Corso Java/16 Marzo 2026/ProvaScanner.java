@@ -11,5 +11,7 @@ public class ProvaScanner{
     System.out.println("Enter username");
 
     /* String userName = myObjString.nextLine(); */
+    myObjString.close();
+    myObjNum.close();
 }
 }
