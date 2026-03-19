@@ -35,6 +35,7 @@ public class EsercizioVoti {
         }
         // stampa il totale dei voti validi
         System.out.println("Voti validi inseriti: " + votoValido);
-
+        scObj.close();
     }
+    
 }
