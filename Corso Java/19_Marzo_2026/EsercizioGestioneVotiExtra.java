@@ -96,10 +96,12 @@ public class EsercizioGestioneVotiExtra {
 
     // controlla se è insegnante e richiama inserisciVoti
     static void assegnaVoto(Scanner scObj, ArrayList<Integer> voti) {
-        System.out.println("Sei un insegnante? (s/n): ");
-        String risposta = scObj.next();
 
-        if (risposta.equalsIgnoreCase("s")) {
+        String password = "12345";
+        System.out.println("Inserisci password");
+        String passwordInserita = scObj.next();
+
+        if (passwordInserita.equals(password)) {
             // richiama il metodo 
             inserisciVoti(scObj, voti);
         } else {
