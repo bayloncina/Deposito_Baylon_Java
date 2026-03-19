@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class EsercizioGestioneVotiExtra {
 
     public static void main(String[] args) {
-        
+
         Scanner scObj = new Scanner(System.in);
         ArrayList<Integer> voti = new ArrayList<>();
 
@@ -100,7 +100,7 @@ public class EsercizioGestioneVotiExtra {
         String risposta = scObj.next();
 
         if (risposta.equalsIgnoreCase("s")) {
-            // richiama il metodo inserisciVoti già esistente ✅
+            // richiama il metodo 
             inserisciVoti(scObj, voti);
         } else {
             System.out.println("Non sei autorizzato ad assegnare voti!");
