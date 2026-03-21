@@ -28,7 +28,7 @@ class Veicolo {
 public class EsercizioClassi3 {
     public static void main(String[] args) {
 
-        //TO DO chiedere a Mirko se gli scanner è meglio istanziarli nel metodo mostraVeicolo
+        //TO DO chiedere a Mirko se gli scanner è meglio istanziarli nel metodo mostraMenu
         Scanner scObjInt = new Scanner(System.in);
         Scanner scObjStr = new Scanner(System.in);
 
