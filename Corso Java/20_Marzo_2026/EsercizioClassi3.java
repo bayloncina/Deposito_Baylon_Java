@@ -57,8 +57,9 @@ public class EsercizioClassi3 {
             switch (scelta) {
                 case 1:
                     // inserisci veicolo
-                    inserisciVeicolo(scObjInt, scObjStr, veicolo);
-                    veicolo.stampaVeicolo();
+                    // attribuisco a veicolo l'oggetto veicolo che ritorna dal metodo
+                    //passando i parametri che servono
+                    veicolo = inserisciVeicolo(scObjInt, scObjStr, veicolo);
                     break;
                 case 2:
                     //visualizza Veicolo
@@ -110,6 +111,7 @@ public class EsercizioClassi3 {
 
             // crea il veicolo direttamente nel case
             veicolo = new Veicolo(marca, modello, anno, prezzo);
+            veicolo.stampaVeicolo();
             System.out.println("Veicolo inserito!");
         return veicolo;
     }
