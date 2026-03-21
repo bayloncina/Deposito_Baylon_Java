@@ -53,7 +53,7 @@ public class EsercizioClassi3 {
 
             switch (scelta) {
                 case 1:
-                    // blocca se il veicolo è già stato inserito
+                    // inserisci veicolo
                     inserisciVeicolo(scObjInt, scObjStr, veicolo);
                     veicolo.stampaVeicolo();
                     break;
