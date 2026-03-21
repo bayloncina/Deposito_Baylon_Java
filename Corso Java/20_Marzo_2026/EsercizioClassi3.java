@@ -27,6 +27,8 @@ class Veicolo {
 
 public class EsercizioClassi3 {
     public static void main(String[] args) {
+
+        //TO DO chiedere a Mirko se gli scanner è meglio istanziarli nel metodo mostraVeicolo
         Scanner scObjInt = new Scanner(System.in);
         Scanner scObjStr = new Scanner(System.in);
 
@@ -39,6 +41,7 @@ public class EsercizioClassi3 {
         scObjStr.close();
     }
 
+    //ritorna veicolo 
     private static Veicolo mostraMenu(Scanner scObjInt, Scanner scObjStr, Veicolo veicolo) {
         boolean continua = true;
         do {
@@ -81,6 +84,7 @@ public class EsercizioClassi3 {
         return veicolo;
     }
 
+//ritorna veicolo
     private static Veicolo inserisciVeicolo(Scanner scObjInt, Scanner scObjStr, Veicolo veicolo) {
 
             System.out.println("Inserisci la marca: ");
