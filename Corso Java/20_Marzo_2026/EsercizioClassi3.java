@@ -15,6 +15,10 @@ class Veicolo {
         this.prezzo = prezzo;
     }
 
+    // costruttore vuoto
+    Veicolo() {
+    }
+
     // stampa tutti gli attributi del veicolo
     public void stampaVeicolo() {
         System.out.println("Marca: " + marca + " Modello: " + modello + " Anno: " + anno + " Prezzo: euro" + prezzo);
@@ -22,14 +26,14 @@ class Veicolo {
 }
 
 public class EsercizioClassi3 {
-
     public static void main(String[] args) {
         Scanner scObjInt = new Scanner(System.in);
         Scanner scObjStr = new Scanner(System.in);
 
-        // null finché non viene inserito
-        Veicolo veicolo = null;
-        veicolo = mostraMenu(scObjInt, scObjStr, veicolo);
+        // passo veicolo vuoto
+        Veicolo veicolo = new Veicolo();
+
+        mostraMenu(scObjInt, scObjStr, veicolo);
 
         scObjInt.close();
         scObjStr.close();
@@ -50,42 +54,19 @@ public class EsercizioClassi3 {
             switch (scelta) {
                 case 1:
                     // blocca se il veicolo è già stato inserito
-                    if (veicolo != null) {
-                        System.out.println("Veicolo già inserito!");
-                    } else {
-                        System.out.println("Inserisci la marca: ");
-                        String marca = scObjStr.nextLine();
-                        System.out.println("Inserisci il modello: ");
-                        String modello = scObjStr.nextLine();
-
-                        // anno deve essere superiore al 1900
-                        System.out.println("Inserisci l'anno: ");
-                        int anno = scObjInt.nextInt();
-                        while (anno <= 1900) {
-                            System.out.println("Anno non valido! Inserisci un anno superiore al 1900: ");
-                            anno = scObjInt.nextInt();
-                        }
-
-                        // prezzo deve essere maggiore di 0
-                        System.out.println("Inserisci il prezzo: ");
-                        double prezzo = scObjInt.nextDouble();
-                        while (prezzo <= 0) {
-                            System.out.println("Prezzo non valido! Inserisci un prezzo maggiore di 0: ");
-                            prezzo = scObjInt.nextDouble();
-                        }
-
-                        // crea il veicolo direttamente nel case
-                        veicolo = new Veicolo(marca, modello, anno, prezzo);
-                        System.out.println("Veicolo inserito!");
-                    }
+                    inserisciVeicolo(scObjInt, scObjStr, veicolo);
+                    veicolo.stampaVeicolo();
                     break;
                 case 2:
+                    //visualizza Veicolo
                     visualizzaVeicolo(veicolo);
                     break;
                 case 3:
+                    //modifica prezzo veicolo
                     modificaPrezzo(scObjInt, veicolo);
                     break;
                 case 4:
+                    //verifica eta veicolo
                     verificaEtaVeicolo(veicolo);
                     break;
                 case 5:
@@ -100,7 +81,35 @@ public class EsercizioClassi3 {
         return veicolo;
     }
 
-    // stampa il veicolo se è stato inserito
+    private static Veicolo inserisciVeicolo(Scanner scObjInt, Scanner scObjStr, Veicolo veicolo) {
+
+            System.out.println("Inserisci la marca: ");
+            String marca = scObjStr.nextLine();
+            System.out.println("Inserisci il modello: ");
+            String modello = scObjStr.nextLine();
+
+            // anno deve essere superiore al 1900
+            System.out.println("Inserisci l'anno: ");
+            int anno = scObjInt.nextInt();
+            while (anno <= 1900) {
+                System.out.println("Anno non valido! Inserisci un anno superiore al 1900: ");
+                anno = scObjInt.nextInt();
+            }
+
+            // prezzo deve essere maggiore di 0
+            System.out.println("Inserisci il prezzo: ");
+            double prezzo = scObjInt.nextDouble();
+            while (prezzo <= 0) {
+                System.out.println("Prezzo non valido! Inserisci un prezzo maggiore di 0: ");
+                prezzo = scObjInt.nextDouble();
+            }
+
+            // crea il veicolo direttamente nel case
+            veicolo = new Veicolo(marca, modello, anno, prezzo);
+            System.out.println("Veicolo inserito!");
+        return veicolo;
+    }
+
     private static void visualizzaVeicolo(Veicolo veicolo) {
         if (veicolo == null) {
             System.out.println("Nessun veicolo inserito!");
@@ -109,7 +118,6 @@ public class EsercizioClassi3 {
         }
     }
 
-    // modifica il prezzo del veicolo se valido
     private static void modificaPrezzo(Scanner scObjInt, Veicolo veicolo) {
         if (veicolo == null) {
             System.out.println("Nessun veicolo inserito!");
@@ -125,7 +133,6 @@ public class EsercizioClassi3 {
         }
     }
 
-    // calcola l'età del veicolo e lo classifica
     private static void verificaEtaVeicolo(Veicolo veicolo) {
         if (veicolo == null) {
             System.out.println("Nessun veicolo inserito!");
@@ -140,4 +147,5 @@ public class EsercizioClassi3 {
             }
         }
     }
+
 }
