@@ -1,0 +1,128 @@
+-- query 7
+-- Mostrare gli sponsor che hanno sponsorizzato performance in almeno 3 giorni diversi.
+
+SELECT 
+    s.nome AS nome_sponsor, 
+    COUNT(DISTINCT p.data_esibizione) AS giorni_distinti
+FROM 
+    Sponsor s
+JOIN 
+    Sponsorizzazione sp ON s.id_sponsor = sp.id_sponsor
+JOIN 
+    Performance p ON sp.id_performance = p.id_performance
+GROUP BY 
+    s.id_sponsor, s.nome
+HAVING 
+    COUNT(DISTINCT p.data_esibizione) >= 3;
+
+-- query 8 Mostrare per ogni giorno il palco con l’incasso più alto.
+
+WITH IncassiGiornalieri AS (
+    SELECT 
+        p.data_esibizione AS giorno,
+        pal.nome AS nome_palco,
+        SUM(pag.importo) AS incasso_totale
+    FROM 
+        Palco pal
+    JOIN Performance p ON pal.id_palco = p.id_palco
+    JOIN Biglietto b ON p.id_performance = b.id_performance
+    JOIN Pagamento pag ON b.id_biglietto = pag.id_biglietto
+    WHERE 
+        pag.stato = 'completato' -- Consideriamo solo i pagamenti andati a buon fine
+    GROUP BY 
+        p.data_esibizione, pal.id_palco, pal.nome
+)
+SELECT 
+    giorno, 
+    nome_palco, 
+    incasso_totale
+FROM 
+    IncassiGiornalieri t1
+WHERE 
+    incasso_totale = (
+        SELECT MAX(incasso_totale) 
+        FROM IncassiGiornalieri t2 
+
+
+----------- query 9 -------------------------
+
+Mostrare la variazione percentuale di incasso giorno per giorno.
+
+SELECT 
+    giorno,
+    incasso_odierno,
+    incasso_precedente,
+    CASE 
+        WHEN incasso_precedente IS NULL THEN 'N/A' -- Gestisce il primo giorno del festival
+        ELSE ROUND(((incasso_odierno - incasso_precedente) / incasso_precedente) * 100, 2) 
+    END AS variazione_percentuale
+FROM (
+    SELECT 
+        DATE(pa.data_pagamento) AS giorno,
+        SUM(pa.importo) AS incasso_odierno,
+        LAG(SUM(pa.importo)) OVER (ORDER BY DATE(pa.data_pagamento)) AS incasso_precedente
+    FROM 
+        Pagamento pa
+    WHERE 
+        pa.stato = 'completato'
+    GROUP BY 
+        DATE(pa.data_pagamento)
+) AS tabella_trend
+ORDER BY 
+    giorno;
+
+-------------- query 10 -----------------------
+
+SELECT 
+    a.id_artista,
+    a.nome AS artista,
+    SUM(pag.importo) AS incasso_totale
+FROM 
+    Artista a
+JOIN Performance perf ON a.id_artista = perf.id_artista
+JOIN Biglietto big ON perf.id_performance = big.id_performance
+JOIN Pagamento pag ON big.id_biglietto = pag.id_biglietto
+WHERE 
+    pag.stato = 'completato'
+GROUP BY 
+    a.id_artista, a.nome
+HAVING 
+    -- 1. Almeno 3 performance 
+    COUNT(DISTINCT perf.id_performance) >= 3 
+    
+    -- 2. Almeno 2 collaborazioni con artisti diversi 
+    AND a.id_artista IN (
+        SELECT id_artista1 FROM Collaborazione GROUP BY id_artista1 HAVING COUNT(DISTINCT id_artista2) >= 2
+        UNION
+        SELECT id_artista2 FROM Collaborazione GROUP BY id_artista2 HAVING COUNT(DISTINCT id_artista1) >= 2
+    )
+    
+    -- 3. Incasso sopra la media degli artisti 
+    AND incasso_totale > (
+        SELECT AVG(incasso_singolo_artista)
+        FROM (
+            SELECT SUM(p2.importo) AS incasso_singolo_artista
+            FROM Pagamento p2
+            JOIN Biglietto b2 ON p2.id_biglietto = b2.id_biglietto
+            JOIN Performance perf2 ON b2.id_performance = perf2.id_performance
+            WHERE p2.stato = 'completato'
+            GROUP BY perf2.id_artista
+        ) AS tabella_medie
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+        WHERE t2.giorno = t1.giorno
+    )
+ORDER BY 
+    giorno;
