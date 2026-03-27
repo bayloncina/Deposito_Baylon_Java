@@ -51,6 +51,10 @@ INSERT INTO Sponsor (id_sponsor, nome, settore, budget) VALUES (1, 'Tech-Bev', '
 INSERT INTO Sponsorizzazione (id_sponsor, id_performance, importo) VALUES (1, 1, 15000.00);
 INSERT INTO Collaborazione (id_artista1, id_artista2, tipo, anno) VALUES (1, 5, 'Album', 2025);
 
+INSERT INTO Sponsor (id_sponsor, nome, settore, budget) VALUES (2, 'Algida', 'Ice-cream', 150000.00);
+INSERT INTO Sponsorizzazione (id_sponsor, id_performance, importo) VALUES (2, 3, 15000.00);
+INSERT INTO Collaborazione (id_artista1, id_artista2, tipo, anno) VALUES (2, 3, 'Album', 2026);
+
 -- 8. Staff tecnico
 INSERT INTO Staff (id_staff, nome, cognome, ruolo, email, tariffa) VALUES
 (1, 'Roberto', 'Tecnico', 'fonico', 'roberto.sound@festival.com', 350.00),
