@@ -44,9 +44,9 @@ WHERE
         FROM IncassiGiornalieri t2 
 
 
------------ query 9 -------------------------
+-- --------- query 9 -------------------------
 
-Mostrare la variazione percentuale di incasso giorno per giorno.
+-- Mostrare la variazione percentuale di incasso giorno per giorno.
 
 SELECT 
     giorno,
@@ -72,6 +72,11 @@ ORDER BY
     giorno;
 
 -------------- query 10 -----------------------
+-- Mostrare gli artisti che:
+--  hanno fatto almeno 3 performance
+-- hanno collaborato con almeno 2 artisti diversi
+-- hanno generato incasso sopra la media degli artisti
+(-- subquery annidate multiple + aggregazioni)
 
 SELECT 
     a.id_artista,
@@ -109,19 +114,6 @@ HAVING
             GROUP BY perf2.id_artista
         ) AS tabella_medie
     );
-
-
-
-
-
-
-
-
-
-
-
-
-
         WHERE t2.giorno = t1.giorno
     )
 ORDER BY 
