@@ -11,7 +11,7 @@ public class Esercizio1 {
 
         // Recuperare i 10 film più noleggiati dalla tabella rental.
 
-        String query = "select film.title, count(*) as noleggi_totali " +
+        String query = "select count(film.title) as noleggi_totali " +
                 "from rental " +
                 "join inventory on rental.inventory_id = inventory.inventory_id " +
                 "join film on inventory.film_id = film.film_id " +
