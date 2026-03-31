@@ -2,7 +2,9 @@ import java.util.Scanner;
 
 public class MissioneSpaziale {
 
-    static Scanner scanner = new Scanner(System.in);
+    static Scanner scannerStr = new Scanner(System.in);
+    static Scanner scannerInt = new Scanner(System.in);
+
     static StazioneSpaziale stazione = new StazioneSpaziale();
 
     public static void main(String[] args) {
@@ -10,12 +12,12 @@ public class MissioneSpaziale {
 
         // Meccanismo di identificazione del ruolo
         System.out.print("Qual è il tuo pianeta preferito? (risposta 'Marte' = Scienziato, altro = Ispettore): ");
-        String risposta = scanner.nextLine().trim();
+        String risposta = scannerStr.nextLine();
 
         System.out.print("Inserisci il tuo nome: ");
-        String nome = scanner.nextLine().trim();
+        String nome = scannerStr.nextLine();
         System.out.print("Inserisci la tua email: ");
-        String email = scanner.nextLine().trim();
+        String email = scannerStr.nextLine();
 
         // Crea l'astronauta nel ruolo corretto
         Astronauta astronauta;
@@ -26,8 +28,6 @@ public class MissioneSpaziale {
             astronauta = new Ispettore(nome, email);
             System.out.println("Ruolo assegnato: Ispettore");
         }
-
-        // Menu ciclico
         boolean running = true;
         while (running) {
             System.out.println("\n--- MENU ---");
@@ -37,7 +37,7 @@ public class MissioneSpaziale {
             System.out.println("4. Esci");
             System.out.print("Scelta: ");
 
-            String scelta = scanner.nextLine().trim();
+            String scelta = scannerStr.nextLine();
 
             switch (scelta) {
                 case "1":
@@ -90,22 +90,22 @@ public class MissioneSpaziale {
             }
         }
 
-        scanner.close();
+        scannerStr.close();
     }
 
     static void gestisciScienziato(Astronauta a) {
         if (a instanceof ScienziatoCapo capo) {
             System.out.print("Quanti esperimenti vuoi aggiungere? ");
-            int n = Integer.parseInt(scanner.nextLine().trim());
+            int n = scannerInt.nextInt();
             String[] esps = new String[n];
             for (int i = 0; i < n; i++) {
                 System.out.print("Esperimento " + (i + 1) + ": ");
-                esps[i] = scanner.nextLine().trim();
+                esps[i] = scannerStr.nextLine();
             }
             capo.aggiungiTuttiEsperimenti(stazione, esps);
         } else if (a instanceof Scienziato s) {
             System.out.print("Nome esperimento da aggiungere: ");
-            String esp = scanner.nextLine().trim();
+            String esp = scannerStr.nextLine();
             s.aggiungiEsperimento(stazione, esp);
         }
     }
@@ -115,7 +115,7 @@ public class MissioneSpaziale {
             esperto.stampaTutteValutazioni(stazione);
         } else if (a instanceof Ispettore i) {
             System.out.print("Inserisci una valutazione (1-5): ");
-            int val = Integer.parseInt(scanner.nextLine().trim());
+            int val = scannerInt.nextInt();
             i.inserisciValutazione(stazione, val);
         }
     }

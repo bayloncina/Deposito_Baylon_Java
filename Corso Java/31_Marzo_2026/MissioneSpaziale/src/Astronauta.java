@@ -13,7 +13,7 @@ public class Astronauta {
         this.creditoOssigeno = login(); // inizializzato al momento della creazione
     }
 
-    // Rigenera l'ossigeno in modo casuale (simula il login)
+    // Rigenera l'ossigeno in modo casuale
     public float login() {
         this.creditoOssigeno = 50 + random.nextFloat() * 50; // valore tra 50 e 100
         return this.creditoOssigeno;

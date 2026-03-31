@@ -1,4 +1,5 @@
 public class Ispettore extends Astronauta {
+    
     private int azioniSvolte; // conta le azioni: serve per evolversi in IspettoreEsperto
 
     public Ispettore(String nome, String email) {

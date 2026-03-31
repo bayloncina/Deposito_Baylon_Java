@@ -2,8 +2,10 @@ public class ScienziatoCapo extends Scienziato {
 
     public ScienziatoCapo(Scienziato s) {
         super(s.getNome(), s.getEmail());
-        // Mantiene il numero di azioni già svolte
+       // copia le azioni già svolte dal vecchio oggetto
+       this.setAzioniSvolte(s.getAzioniSvolte());
     }
+
 
     // Aggiunge tutti gli esperimenti in una sola operazione
     public void aggiungiTuttiEsperimenti(StazioneSpaziale stazione, String[] esperimenti) {

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class StazioneSpaziale {
+    
     private ArrayList<String> esperimenti = new ArrayList<>();
     private ArrayList<Integer> valutazioni = new ArrayList<>();
 

@@ -18,6 +18,9 @@ public class Scienziato extends Astronauta {
 
     public int getAzioniSvolte() { return azioniSvolte; }
 
+    public void setAzioniSvolte(int n) {
+    this.azioniSvolte = n;
+}
     @Override
     public void visualizzaDati() {
         super.visualizzaDati();
