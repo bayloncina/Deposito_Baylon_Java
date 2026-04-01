@@ -3,12 +3,15 @@ import java.util.Scanner;
 
 public class Sartoria {
 
+
+    //creo arrayList di capi e finiture
     private ArrayList<CapoPrincipale> capi = new ArrayList<>();
     private ArrayList<ComponenteFinitura> finiture = new ArrayList<>();
 
     private Scanner scannerInt = new Scanner(System.in);
     private Scanner scannerStr = new Scanner(System.in);
 
+    //faccio scelgiere all'utente quale tipo oggetto vuole creare 
     public void aggiungiCapo() {
         System.out.println("Tipo capo: 1. Giacca  2. Pantalone  3. Gilet");
         int tipo = scannerInt.nextInt();
@@ -134,7 +137,7 @@ public class Sartoria {
     }
 
     // ===================== FINITURE =====================
-
+//faccio scelgiere all'utente quale tipo oggetto vuole creare 
     public void aggiungiFinitura() {
         System.out.println("Tipo finitura: 1. Cravatta  2. Papillon  3. Pochette");
         int tipo = scannerInt.nextInt();

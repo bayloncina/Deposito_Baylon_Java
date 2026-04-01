@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class GestioneSartoria {
     static Scanner scannerInt = new Scanner(System.in);
     static Scanner scannerStr = new Scanner(System.in);
+    //creo sartoria
     static Sartoria sartoria = new Sartoria();
 
     public static void main(String[] args) {
@@ -42,7 +43,8 @@ public class GestioneSartoria {
         scannerInt.close();
     }
 
-    // rimuovi chiedono solo il codice restano nel main perché sono solo input
+    // rimuovi chiedono solo il codice di tipo String che è il 
+    // parametro richiesto dal metodo rimuoviCapo() e rimuoviFinitura()
     static void menuRimuoviCapo() {
         System.out.print("Codice capo da rimuovere: ");
         sartoria.rimuoviCapo(scannerStr.nextLine());
