@@ -106,7 +106,10 @@ public class Sartoria {
         System.out.println("Capo non trovato: " + codice);
     }
 
-    public void rimuoviCapo(String codice) {
+    public void rimuoviCapo() {
+
+         System.out.print("Codice capo da rimuovere: ");
+         String codice = scannerStr.nextLine();
         boolean rimosso = false;
 
         // scorre la lista cercando il capo con il codice corrispondente
@@ -215,7 +218,9 @@ public class Sartoria {
         System.out.println("Finitura non trovata: " + codice);
     }
 
-    public void rimuoviFinitura(String codice) {
+    public void rimuoviFinitura() {
+        System.out.print("Codice finitura da rimuovere: ");
+        String codice = scannerStr.nextLine();
         boolean rimosso = false;
 
         for (ComponenteFinitura f : finiture) {

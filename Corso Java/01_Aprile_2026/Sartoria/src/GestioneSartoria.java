@@ -29,11 +29,11 @@ public class GestioneSartoria {
             switch (scelta) {
                 case 1 -> sartoria.aggiungiCapo();
                 case 2 -> sartoria.modificaCapo();
-                case 3 -> menuRimuoviCapo();
+                case 3 -> sartoria.rimuoviCapo();
                 case 4 -> sartoria.visualizzaCapi();
                 case 5 -> sartoria.aggiungiFinitura();
                 case 6 -> sartoria.modificaFinitura();
-                case 7 -> menuRimuoviFinitura();
+                case 7 -> sartoria.rimuoviFinitura();
                 case 8 -> sartoria.visualizzaFiniture();
                 case 9 -> running = false;
                 default -> System.out.println("Scelta non valida.");
@@ -43,15 +43,5 @@ public class GestioneSartoria {
         scannerInt.close();
     }
 
-    // rimuovi chiedono solo il codice di tipo String che è il 
-    // parametro richiesto dal metodo rimuoviCapo() e rimuoviFinitura()
-    static void menuRimuoviCapo() {
-        System.out.print("Codice capo da rimuovere: ");
-        sartoria.rimuoviCapo(scannerStr.nextLine());
-    }
-
-    static void menuRimuoviFinitura() {
-        System.out.print("Codice finitura da rimuovere: ");
-        sartoria.rimuoviFinitura(scannerStr.nextLine());
-    }
+    
 }
