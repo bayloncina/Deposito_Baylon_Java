@@ -1,4 +1,4 @@
-public class App {
+/* public class App {
     public static void main(String[] args) throws Exception {
         // prendo l'istanza e scrivo un messaggio
         Logger log1 = Logger.getIstanza();
@@ -17,4 +17,4 @@ public class App {
         System.out.println(log1);
         System.out.println(log2);
     }
-}
+} */
