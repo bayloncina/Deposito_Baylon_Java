@@ -25,6 +25,14 @@ public class App {
         DataBaseManager db = DataBaseManager.getIstanzaDb();
         db.connect();
 
+        // dimostra che è sempre la stessa istanza
+        DataBaseManager db2 = DataBaseManager.getIstanzaDb();
+        if (db == db2) {
+            System.out.println("È la stessa istanza!");
+        }
+        System.out.println("Totale connessioni: " + db.getConnectionCount());
+
+        // istanzio l'Utente lo uso come un contenitore temporaneo prima di inserirli nel db
         Utente utente = Utente.getIstanzaUtente();
 
         int scelta = 0;
