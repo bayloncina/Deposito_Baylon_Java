@@ -11,6 +11,14 @@ public class DataBaseManager {
     // rappresenta il canale aperto verso il database
     private Connection connection;
 
+    // ho già creato il db esempio_login_singleton con la tabella utenti
+    /*
+     * CREATE TABLE utenti (
+     * id INT AUTO_INCREMENT PRIMARY KEY,
+     * nome VARCHAR(50),
+     * password VARCHAR(50));
+     */
+
     // credenziali di accesso al database
     private static final String URL = "jdbc:mysql://localhost:3306/esempio_login_singleton";
     private static final String USER = "root";
