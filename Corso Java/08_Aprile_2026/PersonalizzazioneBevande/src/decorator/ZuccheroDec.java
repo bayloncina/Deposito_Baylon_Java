@@ -1,3 +1,6 @@
+package decorator;
+import bevande.Bevanda;
+
 public class ZuccheroDec extends IngredienteDecorator {
     
     public ZuccheroDec(Bevanda bevanda) {

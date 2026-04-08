@@ -1,3 +1,4 @@
+package observer;
 public class StampaOrdine implements OrdineObserver {
     @Override
     public void onOrdineConfermato(String descrizione, double costo) {

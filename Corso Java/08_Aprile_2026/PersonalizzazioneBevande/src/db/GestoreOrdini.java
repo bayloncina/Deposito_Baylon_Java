@@ -1,6 +1,10 @@
+package db;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import bevande.Bevanda;
+import observer.OrdineObserver;
 
 public class GestoreOrdini {
 

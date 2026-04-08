@@ -1,3 +1,6 @@
+package decorator;
+import bevande.Bevanda;
+
 public class PannaDec extends IngredienteDecorator {
     
     public PannaDec(Bevanda bevanda) {

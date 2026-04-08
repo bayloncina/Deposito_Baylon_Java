@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+import bevande.*;
+import db.*;
+import decorator.*;
+import observer.*;
+
 public class App {
     public static void main(String[] args) {
 
