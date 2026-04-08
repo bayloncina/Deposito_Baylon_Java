@@ -1,0 +1,3 @@
+interface Messaggio {
+    String getContenuto();
+}
