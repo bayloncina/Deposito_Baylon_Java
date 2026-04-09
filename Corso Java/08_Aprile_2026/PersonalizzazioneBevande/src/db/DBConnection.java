@@ -6,7 +6,7 @@ public class DBConnection {
 
     private static DBConnection istanzaDb;
     // rappresenta il canale aperto verso il database
-    private Connection connection = null;
+    private Connection connection;
 
     // ho già creato il db bar_db con la tabella ordini
     /*
