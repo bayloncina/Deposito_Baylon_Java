@@ -68,12 +68,5 @@ public class AppDemo {
         System.out.println(ordine3);
         ordine3.eseguiEvasione();
 
-        // applica il decorator solo sull'ordine1 con stato PRIORITA
-        System.out.println("\n===== Stato: PRIORITA con NotificaDecorator su ordine1 =====");
-        centro.cambiaStato("PRIORITA");
-        ordine1.setStrategia(new NotificaDecorator(ordine1.getStrategia()));
-        ordine1.eseguiEvasione();
-        ordine2.eseguiEvasione();
-        ordine3.eseguiEvasione();
     }
 }
