@@ -1,7 +1,7 @@
-abstract class HamburgerDecorator implements Hamburger {
-    protected Hamburger hamburger;
+abstract class HamburgerDecorator implements IHamburger {
+    protected IHamburger hamburger;
 
-    public HamburgerDecorator(Hamburger hamburger) {
+    public HamburgerDecorator(IHamburger hamburger) {
         this.hamburger = hamburger;
     }
 }

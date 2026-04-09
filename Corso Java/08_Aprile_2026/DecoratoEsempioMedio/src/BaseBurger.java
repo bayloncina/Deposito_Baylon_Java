@@ -1,4 +1,4 @@
-public class BaseBurger implements Hamburger {
+public class BaseBurger implements IHamburger {
 
     @Override
     public String getDescrizione() {

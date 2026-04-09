@@ -1,6 +1,6 @@
 package strategyMedio;
 //concrete strategy
-public class PayPal implements MetodoPagamento {
+public class PayPal implements IMetodoPagamento {
 
     private String email;
 

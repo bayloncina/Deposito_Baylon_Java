@@ -1,6 +1,6 @@
 package strategyFacile;
 //concrete strategy 
-public class Moltiplicazione implements Operazione{
+public class Moltiplicazione implements IOperazione{
 
     @Override
     public int esegui(int a, int b) {

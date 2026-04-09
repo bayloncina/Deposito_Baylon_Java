@@ -2,13 +2,13 @@ package strategyMedio;
 
 public class PagamentoContext {
 
-    private MetodoPagamento metodo;
+    private IMetodoPagamento metodo;
 
-    public PagamentoContext(MetodoPagamento metodo) {
+    public PagamentoContext(IMetodoPagamento metodo) {
         this.metodo = metodo;
     }
 
-    public void setMetodo(MetodoPagamento metodo) {
+    public void setMetodo(IMetodoPagamento metodo) {
         this.metodo = metodo;
     }
 

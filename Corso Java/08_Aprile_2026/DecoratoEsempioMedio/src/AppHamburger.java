@@ -1,7 +1,7 @@
 public class AppHamburger {
     public static void main(String[] args) throws Exception {
         // Base
-        Hamburger ordine = new BaseBurger();
+        IHamburger ordine = new BaseBurger();
 
         // Aggiungo decoratori
         ordine = new FormaggioDecorator(ordine);

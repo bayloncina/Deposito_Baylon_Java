@@ -8,8 +8,8 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         System.out.println("--------- Esercizio facile ----------");
-        Operazione addizione = new Addizione();
-        Operazione moltiplicazione = new Moltiplicazione();
+        IOperazione addizione = new Addizione();
+        IOperazione moltiplicazione = new Moltiplicazione();
 
         Calcolatore calc = new Calcolatore(moltiplicazione);
 

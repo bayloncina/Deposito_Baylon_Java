@@ -1,6 +1,6 @@
 package strategyMedio;
 //concrete strategy
-public class CartaDiCredito implements MetodoPagamento {
+public class CartaDiCredito implements IMetodoPagamento {
 
     private String nome;
     private int numeroCarta;

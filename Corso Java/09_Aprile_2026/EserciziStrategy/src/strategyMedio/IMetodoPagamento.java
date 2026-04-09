@@ -1,6 +1,6 @@
 package strategyMedio;
 //strategy
-public interface MetodoPagamento {
+public interface IMetodoPagamento {
     void paga(double importo);
     
 }

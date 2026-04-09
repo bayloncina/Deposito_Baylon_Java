@@ -3,13 +3,13 @@ package strategyFacile;
 
 public class Calcolatore {
 
-    private Operazione operazione;
+    private IOperazione operazione;
 
-    public Calcolatore(Operazione operazione) {
+    public Calcolatore(IOperazione operazione) {
         this.operazione = operazione;
     }
 
-    public void setOperazione(Operazione operazione) {
+    public void setOperazione(IOperazione operazione) {
         this.operazione = operazione;
     }
 

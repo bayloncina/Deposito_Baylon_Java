@@ -1,6 +1,6 @@
 public class FormaggioDecorator extends HamburgerDecorator {
 
-    public FormaggioDecorator(Hamburger hamburger) {
+    public FormaggioDecorator(IHamburger hamburger) {
         super(hamburger);
     }
 
