@@ -20,18 +20,18 @@ public class TaskController {
     // "final" significa che non può essere riassegnato dopo l'inizializzazione
     private final TaskService service;
 
-    // Iniezione delle dipendenze tramite costruttore (consigliata rispetto a @Autowired)
+    // Iniezione delle dipendenze tramite costruttore (consigliata rispetto a
+    // @Autowired)
     public TaskController(TaskService service) {
         this.service = service;
     }
-
 
     // GET /tasks restituisce tutti i task
     // GET /tasks?stato=TODO filtra per stato
     // GET /tasks?search=spesa filtra per parola nel titolo
     // GET /tasks?stato=TODO&search=spesa entrambi i filtri insieme
     // "required = false" significa che i parametri sono opzionali:
-    // se non vengono passati, arrivano come null al service    
+    // se non vengono passati, arrivano come null al service
     @GetMapping
     public List<Task> getAll(
             @RequestParam(required = false) StatoTask stato,
@@ -46,9 +46,11 @@ public class TaskController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /tasks → crea un nuovo task
-    // @Valid attiva la validazione dei campi dell'oggetto Task (es. @NotNull, @NotBlank)
-    // Se la validazione fallisce, Spring risponde automaticamente con 400 Bad Request
+    // POST /tasks crea un nuovo task
+    // @Valid attiva la validazione dei campi dell'oggetto Task (es. @NotNull,
+    // @NotBlank)
+    // Se la validazione fallisce, Spring risponde automaticamente con 400 Bad
+    // Request
     // @RequestBody deserializza il JSON ricevuto in un oggetto Task
     @PostMapping
     public Task crea(@Valid @RequestBody Task task) {
@@ -73,7 +75,7 @@ public class TaskController {
         }
     }
 
-        // DELETE /tasks/{id} elimina un task per id
+    // DELETE /tasks/{id} elimina un task per id
     // Restituisce 204 No Content (operazione riuscita, nessun dato da restituire)
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> elimina(@PathVariable Long id) {
