@@ -1,8 +1,9 @@
 spring:
   application:
-    name: security
+    name: toDoListWithAutentication
+
   datasource:
-    url: jdbc:mysql://localhost:3306/security?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/todo_list_auth?createDatabaseIfNotExist=true
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,5 +21,6 @@ spring:
 jwt:
   secret: mysupersecretkey1234567890abcdef
   expiration: 86400000 # 1 giorno in millisecondi
+  
 server:
-  port: 8081
+  port: 8080

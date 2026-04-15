@@ -1,4 +1,4 @@
-package com.example.security.model;
+package com.example.toDoListWithAutentication.user;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

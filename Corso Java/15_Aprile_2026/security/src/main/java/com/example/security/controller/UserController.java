@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-@GetMapping("/info")
-public String infoUtente(Authentication auth) {
-return "Ciao " + auth.getName() + ", sei autenticato come USER o ADMIN.";
+    @GetMapping("/info")
+    public String infoUtente(Authentication auth) {
+        return "Ciao " + auth.getName() + ", sei autenticato come USER o ADMIN.";
+    }
 }
-}
-
