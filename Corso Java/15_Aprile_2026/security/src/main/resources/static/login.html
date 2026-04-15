@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accesso - Deposito Baylon</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <div class="page-shell">
+        <div class="card login-card">
+            <div class="brand">Deposito Baylon</div>
+            <h1>Benvenuto!</h1>
+            <p>Effettua il login per accedere alla tua area riservata.</p>
+
+            <form action="/login" method="post" class="login-form">
+                <label>
+                    <span>Username</span>
+                    <input type="text" name="username" placeholder="admin" required autofocus />
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" name="password" placeholder="••••••••" required />
+                </label>
+                <button type="submit" class="primary-button">Accedi</button>
+            </form>
+
+            <div id="message" class="message"></div>
+            <div class="helper-text">Se non hai accesso, usa: admin / 1234</div>
+        </div>
+    </div>
+    <script src="/js/login.js"></script>
+</body>
+</html>

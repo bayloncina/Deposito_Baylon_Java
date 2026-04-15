@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security App</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      overflow: hidden;
+    }
+
+    /* ── Animated background blobs ───────────────────────────── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: drift 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .blob-1 { width: 500px; height: 500px; background: #e94560; top: -150px; left: -150px; animation-delay: 0s; }
+    .blob-2 { width: 400px; height: 400px; background: #533483; bottom: -100px; right: -100px; animation-delay: 2s; }
+    .blob-3 { width: 300px; height: 300px; background: #0f3460; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 4s; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, -30px) scale(1.1); }
+    }
+
+    /* ── Card ─────────────────────────────────────────────────── */
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); }
+
+    /* ── Logo / icon ──────────────────────────────────────────── */
+    .icon-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+    .icon-shield {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #e94560, #533483);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 24px rgba(233, 69, 96, 0.4);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(233, 69, 96, 0.4); }
+      50%       { box-shadow: 0 8px 40px rgba(233, 69, 96, 0.7); }
+    }
+
+    /* ── Title ────────────────────────────────────────────────── */
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.875rem;
+      margin-bottom: 32px;
+    }
+
+    /* ── Views (login / dashboard) ────────────────────────────── */
+    .view { animation: fadeIn 0.4s ease; }
+    .view.hidden { display: none; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Form ─────────────────────────────────────────────────── */
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #e94560;
+      background: rgba(255,255,255,0.1);
+    }
+    input::placeholder { color: rgba(255,255,255,0.3); }
+
+    /* ── Buttons ──────────────────────────────────────────────── */
+    .btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #e94560, #c73652);
+      color: #fff;
+      margin-top: 8px;
+      box-shadow: 0 4px 16px rgba(233,69,96,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(233,69,96,0.5); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-logout {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      margin-top: 28px;
+    }
+    .btn-logout:hover {
+      background: rgba(233,69,96,0.2);
+      border-color: #e94560;
+      color: #fff;
+    }
+
+    /* ── Loading spinner ──────────────────────────────────────── */
+    .spinner-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: #e94560;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-wrap p { color: rgba(255,255,255,0.45); font-size: 0.875rem; }
+
+    /* ── Alert banner ─────────────────────────────────────────── */
+    .alert {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .alert.error   { background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.4); color: #ff8fa3; }
+    .alert.success { background: rgba(50,205,120,0.12); border: 1px solid rgba(50,205,120,0.3); color: #5ce698; }
+    .alert.show { display: flex; align-items: center; gap: 8px; }
+
+    /* ── Dashboard ────────────────────────────────────────────── */
+    .welcome-text {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.875rem;
+      margin-bottom: 6px;
+    }
+    .username {
+      text-align: center;
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .roles-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .role-badge {
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .role-badge.admin { background: rgba(233,69,96,0.2); border: 1px solid rgba(233,69,96,0.5); color: #ff8fa3; }
+    .role-badge.user  { background: rgba(83,52,131,0.3); border: 1px solid rgba(83,52,131,0.6); color: #b39ddb; }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 20px 0;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.875rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .quick-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+      transform: translateX(4px);
+    }
+    .quick-link .link-icon { font-size: 1rem; }
+    .quick-link .link-label { flex: 1; }
+    .quick-link .link-arrow { opacity: 0.4; }
+
+    /* ── API result area ──────────────────────────────────────── */
+    .api-result {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      font-size: 0.78rem;
+      color: #5ce698;
+      white-space: pre-wrap;
+      word-break: break-all;
+      max-height: 80px;
+      overflow-y: auto;
+      display: none;
+    }
+    .api-result.show { display: block; animation: fadeIn 0.3s ease; }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="card">
+
+    <!-- Icon -->
+    <div class="icon-wrap">
+      <div class="icon-shield">🔐</div>
+    </div>
+    <h1>Security App</h1>
+    <p class="subtitle">Spring Security · JWT · Roles</p>
+
+    <!-- ── LOADING ─────────────────────────────────────────── -->
+    <div id="view-loading" class="view">
+      <div class="spinner-wrap">
+        <div class="spinner"></div>
+        <p>Verifica sessione...</p>
+      </div>
+    </div>
+
+    <!-- ── LOGIN ───────────────────────────────────────────── -->
+    <div id="view-login" class="view hidden">
+      <div id="login-alert" class="alert error">
+        <span>⚠️</span><span id="login-alert-msg">Credenziali non valide. Riprova!</span>
+      </div>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="es. admin" autocomplete="username" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn btn-primary" id="login-btn">
+          Accedi →
+        </button>
+      </form>
+    </div>
+
+    <!-- ── DASHBOARD ───────────────────────────────────────── -->
+    <div id="view-dashboard" class="view hidden">
+      <div id="dash-alert" class="alert success">
+        <span>✅</span><span>Login effettuato con successo!</span>
+      </div>
+
+      <p class="welcome-text">Benvenuto/a,</p>
+      <p class="username" id="dash-username">—</p>
+
+      <div class="roles-wrap" id="dash-roles"></div>
+
+      <div class="divider"></div>
+
+      <div class="quick-links">
+        <a class="quick-link" id="link-user" href="#" data-url="/user/info">
+          <span class="link-icon">👤</span>
+          <span class="link-label">Area Utente <small style="opacity:.5">/user/info</small></span>
+          <span class="link-arrow">›</span>
+        </a>
+        <a class="quick-link admin-only" id="link-admin" href="#" data-url="/admin/pannello">
+          <span class="link-icon">⚙️</span>
+          <span class="link-label">Pannello Admin <small style="opacity:.5">/admin/pannello</small></span>
+          <span class="link-arrow">›</span>
+        </a>
+        <a class="quick-link" href="#" data-url="/public/hello">
+          <span class="link-icon">🌐</span>
+          <span class="link-label">Area Pubblica <small style="opacity:.5">/public/hello</small></span>
+          <span class="link-arrow">›</span>
+        </a>
+      </div>
+
+      <div id="api-result" class="api-result"></div>
+
+      <button class="btn btn-logout" id="logout-btn">
+        🚪 Esci dall'account
+      </button>
+    </div>
+
+  </div><!-- /card -->
+
+  <script>
+    // ── Helpers ──────────────────────────────────────────────────
+    const $ = id => document.getElementById(id);
+
+    function showView(name) {
+      ['loading', 'login', 'dashboard'].forEach(v => {
+        const el = $('view-' + v);
+        el.classList.toggle('hidden', v !== name);
+        // re-trigger animation
+        if (v === name) { el.classList.remove('view'); void el.offsetWidth; el.classList.add('view'); }
+      });
+    }
+
+    function showAlert(id, type, msg) {
+      const el = $(id);
+      el.className = 'alert ' + type + ' show';
+      if (msg) el.querySelector('[id$="-msg"], span:last-child').textContent = msg;
+      setTimeout(() => el.classList.remove('show'), 4000);
+    }
+
+    // ── Check auth status on load ─────────────────────────────
+    // Chiama /api/status in modo sicuro: ritorna sempre un oggetto,
+    // mai un'eccezione (gestisce redirect a HTML invece di JSON)
+    async function fetchStatus() {
+      try {
+        const res = await fetch('/api/status', { credentials: 'include' });
+        const ct = res.headers.get('content-type') || '';
+        if (res.ok && ct.includes('application/json')) {
+          return await res.json();
+        }
+      } catch {}
+      return { authenticated: false };
+    }
+
+    async function checkStatus() {
+      const data = await fetchStatus();
+      if (data.authenticated) {
+        renderDashboard(data);
+        showView('dashboard');
+        $('dash-alert').classList.remove('show');
+      } else {
+        showView('login');
+        if (location.search.includes('error')) {
+          showAlert('login-alert', 'error', 'Credenziali non valide. Riprova!');
+          history.replaceState(null, '', '/');
+        }
+      }
+    }
+
+    // ── Render dashboard ──────────────────────────────────────
+    function renderDashboard({ username, roles }) {
+      $('dash-username').textContent = username;
+
+      const rolesWrap = $('dash-roles');
+      rolesWrap.innerHTML = '';
+      (roles || []).forEach(r => {
+        const badge = document.createElement('span');
+        badge.className = 'role-badge ' + (r.includes('ADMIN') ? 'admin' : 'user');
+        badge.textContent = r.replace('ROLE_', '');
+        rolesWrap.appendChild(badge);
+      });
+
+      // Hide admin link if not admin
+      const isAdmin = (roles || []).some(r => r.includes('ADMIN'));
+      document.querySelectorAll('.admin-only').forEach(el => {
+        el.style.display = isAdmin ? '' : 'none';
+      });
+    }
+
+    // ── Login form ────────────────────────────────────────────
+    $('login-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = $('login-btn');
+      btn.textContent = 'Accesso in corso...';
+      btn.disabled = true;
+
+      const body = new URLSearchParams({
+        username: $('username').value.trim(),
+        password: $('password').value
+      });
+
+      try {
+        // Spring Security form login: POST to /login, follow redirect manually
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body,
+          credentials: 'include',
+          redirect: 'manual'   // catch the redirect ourselves
+        });
+
+        // Spring redirects to / on success, to /?error on fail
+        if (res.type === 'opaqueredirect' || res.status === 302 || res.ok) {
+          const data = await fetchStatus();
+          if (data.authenticated) {
+            renderDashboard(data);
+            showView('dashboard');
+            showAlert('dash-alert', 'success');
+          } else {
+            showAlert('login-alert', 'error', 'Credenziali non valide. Riprova!');
+          }
+        } else {
+          showAlert('login-alert', 'error', 'Errore durante il login. Riprova!');
+        }
+      } catch {
+        showAlert('login-alert', 'error', 'Impossibile raggiungere il server.');
+      } finally {
+        btn.textContent = 'Accedi →';
+        btn.disabled = false;
+      }
+    });
+
+    // ── Logout ────────────────────────────────────────────────
+    $('logout-btn').addEventListener('click', async () => {
+      const btn = $('logout-btn');
+      btn.textContent = '⏳ Uscita...';
+      btn.disabled = true;
+
+      try {
+        await fetch('/logout', {
+          method: 'POST',
+          credentials: 'include',
+          redirect: 'manual'
+        });
+      } catch { /* ignore network errors on logout */ }
+
+      $('username').value = '';
+      $('password').value = '';
+      showView('login');
+      showAlert('login-alert', 'success', '👋 Logout effettuato correttamente!');
+
+      btn.textContent = '🚪 Esci dall\'account';
+      btn.disabled = false;
+    });
+
+    // ── Quick links (call API and show result inline) ─────────
+    document.querySelectorAll('.quick-link').forEach(link => {
+      link.addEventListener('click', async e => {
+        e.preventDefault();
+        const url = link.dataset.url;
+        const result = $('api-result');
+        result.className = 'api-result';
+        result.textContent = 'Caricamento...';
+        result.classList.add('show');
+
+        try {
+          const res = await fetch(url, { credentials: 'include' });
+          if (res.ok) {
+            result.textContent = await res.text();
+            result.style.color = '#5ce698';
+          } else {
+            result.textContent = `⛔ ${res.status} ${res.statusText}`;
+            result.style.color = '#ff8fa3';
+          }
+        } catch {
+          result.textContent = '⚠️ Errore di rete';
+          result.style.color = '#ff8fa3';
+        }
+      });
+    });
+
+    // ── Boot ──────────────────────────────────────────────────
+    checkStatus();
+  </script>
+</body>
+</html>
