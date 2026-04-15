@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestionale Pizzeria</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="app-shell">
+        <header class="hero">
+            <div>
+                <h1>Gestionale Pizzeria</h1>
+                <p>Seleziona un utente per attivare le funzioni: <strong>Utente</strong> per ordinare e <strong>Admin</strong> per cambiare lo stato degli ordini.</p>
+            </div>
+            <div class="user-choice">
+                <label for="utenteSelect">Seleziona utente</label>
+                <select id="utenteSelect"></select>
+                <button id="refreshBtn" type="button">Ricarica</button>
+            </div>
+        </header>
+
+        <main>
+            <section id="createUserPanel" class="card">
+                <h2>Crea nuovo utente</h2>
+                <div class="form-row">
+                    <label>
+                        Nome
+                        <input id="createNome" type="text" placeholder="Mario Rossi" />
+                    </label>
+                    <label>
+                        Email
+                        <input id="createEmail" type="email" placeholder="mario@example.com" />
+                    </label>
+                    <label class="checkbox-label">
+                        <input id="createIsAdmin" type="checkbox" /> Admin
+                    </label>
+                    <button id="createUserBtn" type="button" class="primary">Aggiungi utente</button>
+                </div>
+            </section>
+
+            <section id="utenteInfo" class="card"></section>
+
+            <section id="adminPanel" class="card hidden">
+                <h2>Area Admin</h2>
+                <p>Gestisci lo stato di tutti gli ordini.</p>
+                <div id="adminOrders" class="grid"></div>
+            </section>
+
+            <section id="userPanel" class="card hidden">
+                <h2>Area Utente</h2>
+                <div class="panel-row">
+                    <div class="panel-item">
+                        <h3>Menu disponibile</h3>
+                        <div id="menuList" class="grid"></div>
+                    </div>
+                    <div class="panel-item">
+                        <h3>Carrello</h3>
+                        <div id="cartList" class="cart-list"></div>
+                        <button id="submitOrderBtn" type="button" class="primary">Invia ordine</button>
+                    </div>
+                </div>
+                <div class="order-history card">
+                    <h3>I tuoi ordini</h3>
+                    <div id="userOrders" class="grid"></div>
+                </div>
+            </section>
+        </main>
+
+        <div id="messageBox" class="message-box hidden"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

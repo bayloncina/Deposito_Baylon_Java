@@ -392,7 +392,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Priorità (1 = alta)</label>
-          <input type="number" id="f-priorita" min="1" max="5" value="3" />
+          <input type="number" id="f-priorita" min="1" max="5" value="1" />
         </div>
         <div class="form-group">
           <label>Scadenza</label>
@@ -647,12 +647,12 @@
     e.preventDefault();
     const titolo     = document.getElementById('f-titolo').value.trim();
     const descrizione = document.getElementById('f-desc').value.trim();
-    const priorita   = parseInt(document.getElementById('f-priorita').value) || 3;
+    const priorita   = parseInt(document.getElementById('f-priorita').value) || 1;
     const scadenza   = document.getElementById('f-scadenza').value || null;
 
-    document.getElementById('desc-error').textContent = '';
-    if (descrizione.length < 3 || descrizione.length > 20) {
-      document.getElementById('desc-error').textContent = 'La descrizione deve essere tra 3 e 20 caratteri';
+    document.getElementById('titolo-error').textContent = '';
+    if (titolo.length < 3 || descrizione.length > 20) {
+      document.getElementById('titolo-error').textContent = 'Il titolo non può essere vuoto';
       return;
     }
 
